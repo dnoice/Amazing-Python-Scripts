@@ -1,38 +1,104 @@
-# Attachment Downloader
+# Gmail Attachment Downloader
 
-The script downloads gmail atttachment(s) in no time!
+A Python script to easily search and download Gmail attachments based on search queries.
 
+## Features
 
-# Setup Instructions
+- Search Gmail using Google's powerful search operators
+- View email search results with dates and subjects
+- Download attachments from search results to a specified directory
+- Progress tracking during downloads
+- User-friendly command-line interface
 
-The script uses ezgmail module (to know more visit https://pypi.org/project/EZGmail/). To install please type the following command in your bash.
+## Requirements
+
+- Python 3.6+
+- ezgmail library
+- Google API credentials
+
+## Setup Instructions
+
+### 1. Install Required Packages
 
 ```bash
-pip install EZGmail
+pip install ezgmail
 ```
 
-Once the module is installed you will need to download credentials.json file by going to [developers.google.com](https://developers.google.com/gmail/api/quickstart/python) and clicking the Enable the Gmail API button (select "Desktop app" as OAuth Client in second step).
+### 2. Get Google API Credentials
 
-Once you have credentials.json (in root directory of project folder), the first time you run the script it will open up a browser window asking you to log in to your Gmail account and allow "Quickstart" app to access it. A token.json file will be generated (in root directory of project folder) which your script can use to access your account.
+1. Visit the [Google API Console](https://developers.google.com/gmail/api/quickstart/python)
+2. Click the "Enable the Gmail API" button
+3. Select "Desktop app" as the OAuth Client type when prompted
+4. Download the `credentials.json` file and place it in the same directory as this script
 
-# Outputs
+### 3. First-Time Authentication
 
-## Output 1
+The first time you run the script, it will:
+1. Open a browser window asking you to log in to your Gmail account
+2. Request permission for the app to access your Gmail
+3. Generate a `token.json` file in the script directory to save your authentication
 
-![image](https://user-images.githubusercontent.com/75886245/111307477-82e5d100-867f-11eb-8461-58abd04fa56a.png)
+## Usage
 
-## Output 2
+1. Run the script:
+```bash
+python attachment_downloader.py
+```
 
-![image](https://user-images.githubusercontent.com/75886245/111307625-ba547d80-867f-11eb-8f3b-77ded9e72416.png)
+2. Enter your search query when prompted. The script supports all Gmail search operators, for example:
+   - `from:example@gmail.com` - Emails from a specific address
+   - `subject:report` - Emails with "report" in the subject
+   - `after:2023/01/01 before:2023/12/31` - Emails within a date range
+   - `label:work` - Emails with a specific label
+   - `has:pdf` - Emails with PDF attachments
+   - Combine operators: `from:example@gmail.com subject:report has:pdf`
 
-## Output 3
+3. Review the search results
 
-![image](https://user-images.githubusercontent.com/75886245/111307771-e66ffe80-867f-11eb-8bbe-457675fcb963.png)
+4. Confirm if you want to download the attachments
 
-## Output 4
+5. Specify a download directory (optional)
 
-![image](https://user-images.githubusercontent.com/75886245/111307864-0273a000-8680-11eb-8400-3009dff8d7db.png)
+## Search Query Examples
+
+- `from:payroll@company.com has:spreadsheet` - Payroll spreadsheets
+- `subject:(invoice OR receipt) after:2023/05/01` - Recent invoices or receipts
+- `from:newsletter@example.com label:newsletters` - Newsletter emails with a specific label
+- `filename:pdf larger:5M` - PDF attachments larger than 5MB
+- `from:myteam@company.com has:attachment -has:document` - Team emails with attachments that aren't documents
+
+## Troubleshooting
+
+### Authentication Issues
+
+- Make sure you have the `credentials.json` file in the same directory as the script
+- If you change Google accounts, delete the `token.json` file and re-authenticate
+- If you see permission errors, check that you've enabled the Gmail API for your Google account
+
+### Search Problems
+
+- Gmail search can be case-sensitive for some operators
+- Ensure your search syntax is correct (see [Gmail search operators](https://support.google.com/mail/answer/7190?hl=en))
+- Very large inboxes may take longer to search or time out
+
+### Download Issues
+
+- Check if you have write permissions for the download directory
+- Very large attachments might take time to download
+- Gmail API has usage limits that might affect bulk downloads
+
+## Advanced Usage
+
+- To automate downloads, you can modify the script to accept command-line arguments
+- For recurring downloads, consider setting up as a scheduled task
+- To filter by attachment types, use search operators like `has:pdf`, `has:spreadsheet`, etc.
+
+## License
+
+This project is open source and available under the MIT License.
 
 # Author
 
 Contributed by Kirtan Bhatt
+
+Updated: Dennis 'dnoice' Smaltz May 19, 2025
