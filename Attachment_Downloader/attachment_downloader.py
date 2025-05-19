@@ -19,9 +19,9 @@ def download_attachments(result_threads: List, download_dir: Optional[str] = Non
     Raises:
         Exception: If there's an error during download
     """
-    # Create download directory if it doesn't exist
-    if download_dir and not os.path.exists(download_dir):
-        os.makedirs(download_dir)
+    # Ensure download directory exists (atomically avoiding race conditions)
+    if download_dir:
+        os.makedirs(download_dir, exist_ok=True)
         print(f"Created directory: {download_dir}")
     
     # Store original working directory
